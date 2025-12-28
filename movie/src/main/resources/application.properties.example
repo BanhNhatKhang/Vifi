@@ -1,0 +1,27 @@
+spring.application.name=movie
+
+# ===== SWAGGER =====
+springdoc.swagger-ui.path=/swagger-ui.html
+
+# ===== SESSION =====
+spring.session.store-type=redis
+server.servlet.session.cookie.name=SESSION
+
+# ===== CACHE =====
+spring.cache.type=redis
+spring.cache.redis.use-key-prefix=true
+spring.cache.redis.key-prefix=dev:movie:cache:
+
+# ===== REDIS =====
+spring.data.redis.host=127.0.0.1
+spring.data.redis.port=6379
+
+# ===== DATASOURCE =====
+spring.datasource.url=jdbc:postgresql://localhost:5432/movie_db
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
+
+# ===== JPA =====
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
