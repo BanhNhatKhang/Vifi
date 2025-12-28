@@ -3,7 +3,7 @@ spring.application.name=movie
 # ===== SWAGGER =====
 springdoc.swagger-ui.path=/swagger-ui.html
 
-# ===== SESSION (BẮT BUỘC) =====
+# ===== SESSION =====
 spring.session.store-type=redis
 server.servlet.session.cookie.name=SESSION
 
@@ -13,18 +13,15 @@ spring.cache.redis.use-key-prefix=true
 spring.cache.redis.key-prefix=dev:movie:cache:
 
 # ===== REDIS =====
-# Khi chạy local dùng localhost, khi chạy docker sẽ bị ghi đè bởi SPRING_DATA_REDIS_HOST
 spring.data.redis.host=127.0.0.1
 spring.data.redis.port=6379
 
 # ===== DATASOURCE =====
-# Khi chạy local dùng localhost, khi chạy docker sẽ bị ghi đè bởi SPRING_DATASOURCE_URL
 spring.datasource.url=jdbc:postgresql://localhost:5432/movie_db
-spring.datasource.username=postgres
-spring.datasource.password=T@McjBZn
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
 
 # ===== JPA =====
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
-

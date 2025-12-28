@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  redis-movie:
+    image: redis:7
+    container_name: redis-movie
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  pg-db:
+    image: postgres:15
+    container_name: pg-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: movie_db
+      POSTGRES_USER: YOUR_USERNAME
+      POSTGRES_PASSWORD: YOUR_PASSWORD
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # movieapp:
+  #   build: .
+  #   container_name: movieapp
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - redis-movie
+  #     - pg-db
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://pg-db:5432/YOUR_DB_NAME
+  #     SPRING_DATA_REDIS_HOST: redis-movie
+  #   restart: unless-stopped
+
+volumes:
+  redis-data:
+  pg-data:

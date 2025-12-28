@@ -9,18 +9,22 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(
-  name = "users",
-  indexes = {
-    @Index(name = "idx_users_username", columnList = "username"),
-    @Index(name = "idx_users_email", columnList = "email")
-  }
+    name = "users",
+    indexes = {
+        @Index(name = "idx_users_username", columnList = "username"),
+        @Index(name = "idx_users_email", columnList = "email")
+    }
 )
-
+@Builder 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(updatable = false, nullable = false)
@@ -35,21 +39,23 @@ public class User {
     @Column(nullable = false, length = 100)
     private String passwordHash;
 
+    @Setter
     @Column(length = 100)
     private String displayName;
 
+    @Setter
     @Column(length = 255)
     private String avatarUrl;
 
     @Column(name = "role", nullable = false, length = 30)
     @Enumerated(EnumType.STRING)
-    private Role role  ;
+    private Role role;
 
     @Column(name = "provider", nullable = false, length = 30)
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
-
+    @Builder.Default
     @Column(name = "is_enabled", nullable = false)
     private boolean enabled = true;
 
@@ -60,8 +66,15 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Setter
     private LocalDateTime lastLoginAt;
 
-    protected User() {}
+    public void disable() {
+        this.enabled = false;
+    }
 
+    public void enable() {
+        this.enabled = true;
+    }
 }
+
