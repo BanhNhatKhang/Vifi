@@ -17,3 +17,4 @@
 .settings/
 .env
 /logs/
+/node_modules/

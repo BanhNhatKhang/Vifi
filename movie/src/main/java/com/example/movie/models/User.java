@@ -39,11 +39,9 @@ public class User {
     @Column(nullable = false, length = 100)
     private String passwordHash;
 
-    @Setter
     @Column(length = 100)
     private String displayName;
 
-    @Setter
     @Column(length = 255)
     private String avatarUrl;
 
@@ -66,8 +64,26 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Setter
     private LocalDateTime lastLoginAt;
+
+    public void updateEmail(String newEmail) {
+        this.email = newEmail;
+    }
+
+    public void updatePassword(String newPasswordHash) {
+        this.passwordHash = newPasswordHash;
+    }
+
+    public void updateProfile(String displayName, String avatarUrl) {
+        if (displayName != null && !displayName.isBlank()) {
+            this.displayName = displayName;
+        }
+        this.avatarUrl = avatarUrl;
+    }
+
+    public void recordLogin() {
+        this.lastLoginAt = LocalDateTime.now();
+    }
 
     public void disable() {
         this.enabled = false;

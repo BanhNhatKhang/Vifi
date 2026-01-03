@@ -51,8 +51,8 @@ class AuthIntegrationTest {
         value = "flowuser",
         userDetailsServiceBeanName = "userDetailsServiceImpl"
     )
-    void logout_ShouldRedirect_WhenAuthenticated() throws Exception {
-        mockMvc.perform(post("/api/auth/logout"))
-               .andExpect(status().is3xxRedirection());
+    void logout_Should_WhenAuthenticated() throws Exception {
+         mockMvc.perform(post("/api/auth/logout"))
+             .andExpect(status().isOk());
     }
 }

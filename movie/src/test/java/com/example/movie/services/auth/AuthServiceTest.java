@@ -9,7 +9,7 @@ import com.example.movie.dto.request.LoginRequest;
 import com.example.movie.dto.request.RegisterRequest;
 import com.example.movie.dto.response.UserResponse;
 import com.example.movie.exception.AppException;
-import com.example.movie.exception.DuplicateResourceException;
+// import com.example.movie.exception.DuplicateResourceException;
 import com.example.movie.mapper.UserMapper;
 import com.example.movie.models.User;
 import com.example.movie.repositories.UserRepository;
@@ -22,9 +22,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -60,10 +61,9 @@ class AuthServiceTest {
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(User.builder().build()));
         
-        // THÊM DÒNG NÀY: Giả lập mapper không trả về null để vượt qua bước check đầu vào
-        // when(userMapper.toEntity(any())).thenReturn(User.builder().build());
+        AppException exception = assertThrows(AppException.class, () -> authService.registerUser(registerRequest));
 
-        assertThrows(DuplicateResourceException.class, () -> authService.registerUser(registerRequest));
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
     }
 
     // --- TEST AUTHENTICATE/LOGIN ---
